@@ -22,5 +22,12 @@ export const getHomeSlider = () => {
         'picUrl': require('assets/img/404.png')
       }
     ];
+  }).then(data => {
+    // setTimeout 模拟网速较慢
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(data);
+      }, 1000);
+    });
   });
 };
