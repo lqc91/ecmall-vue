@@ -3,6 +3,7 @@
     <!-- v-if 判断是否获取到异步数据，未获取显示 loading -->
     <me-loading v-if="!sliders.length" />
     <me-slider
+      :data="sliders"
       :direction="direction"
       :loop="loop"
       :interval="interval"
@@ -46,8 +47,11 @@ export default {
     this.getSliders();
   },
   methods: {
+    update() {
+      return this.getSliders();
+    },
     getSliders() {
-      getHomeSlider().then(data => {
+      return getHomeSlider().then(data => {
         this.sliders = data;
       });
     }

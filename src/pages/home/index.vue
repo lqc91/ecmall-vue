@@ -3,8 +3,8 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll :data="recommends">
-      <home-slider />
+    <me-scroll :data="recommends" pullDown @pull-down="pullToRefresh">
+      <home-slider ref="slider" />
       <home-nav />
       <home-recommend @loaded="getRecommends" />
     </me-scroll>
@@ -38,6 +38,9 @@ export default {
     updateScroll() {},
     getRecommends(recommends) {
       this.recommends = recommends;
+    },
+    pullToRefresh(end) {
+      this.$refs.slider.update().then(end);
     }
   }
 };

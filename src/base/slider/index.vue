@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" :key="keyId">
     <slot></slot>
     <template v-slot:pagination>
       <div class="swiper-pagination" v-if="pagination"></div>
@@ -40,11 +40,34 @@ export default {
     pagination: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data() {
     return {
-      swiperOption: {
+      keyId: Math.random()
+    };
+  },
+  watch: {
+    data(newData) {
+      if (newData.length === 0) {
+        return;
+      }
+      this.swiperOption.loop = newData.length === 1 ? false : this.loop; // 刷新修改 loop
+      this.keyId = Math.random();
+    }
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.swiperOption = {
         // 只有 1 个 slide (非 loop)，swiper 失效且隐藏导航等
         watchOverflow: true,
         direction: this.direction,
@@ -54,12 +77,12 @@ export default {
         } : false,
         // 设置 slider 容器能够同时显示的 slides 数量
         slidesPerView: 1,
-        loop: this.loop,
+        loop: this.data.length <= 1 ? false : this.loop, // 边界条件，仅一张图片，不开启
         pagination: {
           el: this.pagination ? '.swiper-pagination' : null
         }
-      }
-    };
+      };
+    }
   }
 };
 </script>
