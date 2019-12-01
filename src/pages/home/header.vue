@@ -1,5 +1,5 @@
 <template>
-  <me-navbar class="header">
+  <me-navbar class="header" v-show="visible">
     <template v-slot:left>
       <i class="iconfont icon-scan"></i>
     </template>
@@ -17,6 +17,19 @@ export default {
   name: 'HomeHeader',
   components: {
     MeNavbar
+  },
+  data() {
+    return {
+      visible: true
+    };
+  },
+  methods: {
+    show() {
+      this.visible = true;
+    },
+    hide() {
+      this.visible = false;
+    }
   }
 };
 </script>
@@ -25,8 +38,15 @@ export default {
 @import "~assets/scss/mixins";
 
 .header {
-  background-color: transparent;
-  // background-color: $header-bgc-translucent;
+  &.mine-navbar {
+    background-color: transparent;
+    transition: background-color 0.5s;
+    // background-color: $header-bgc-translucent;
+  }
+
+  &.header-transition {
+    background-color: $header-bgc-translucent;
+  }
 
   .iconfont {
     color: $icon-color-default;

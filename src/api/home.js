@@ -42,13 +42,6 @@ export const getHomeSlider = () => {
         'picUrl': require('assets/img/404.png')
       }
     ];
-  }).then(data => {
-    // setTimeout 模拟网速较慢
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
-    });
   });
 };
 
@@ -70,11 +63,5 @@ export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
     console.log(err);
-  }).then(data => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
-    });
   });
 };
