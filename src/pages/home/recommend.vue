@@ -50,17 +50,25 @@ export default {
     this.getRecommend();
   },
   methods: {
+    // API
+    update() {
+      return this.getRecommend();
+    },
+
     getRecommend() {
       if (this.curPage > this.totalPage) {
-        return;
+        return Promise.reject(new Error('没有更多了'));
       }
-      getHomeRecommend(this.curPage).then(data => {
-        if (data) {
-          this.curPage++;
-          this.totalPage = data.totalPage;
-          this.recommends = this.recommends.concat(data.itemList);
-          this.$emit('loaded', this.recommends);
-        }
+      return getHomeRecommend(this.curPage).then(data => {
+        return new Promise(resolve => {
+          if (data) {
+            this.curPage++;
+            this.totalPage = data.totalPage;
+            this.recommends = this.recommends.concat(data.itemList);
+            this.$emit('loaded', this.recommends);
+            resolve();
+          }
+        });
       });
     }
   }

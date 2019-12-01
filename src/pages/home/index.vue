@@ -3,10 +3,16 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll :data="recommends" pullDown @pull-down="pullToRefresh">
+    <me-scroll
+      :data="recommends"
+      pullDown
+      pullUp
+      @pull-down="pullToRefresh"
+      @pull-up="pullToLoadMore"
+    >
       <home-slider ref="slider" />
       <home-nav />
-      <home-recommend @loaded="getRecommends" />
+      <home-recommend @loaded="getRecommends" ref="recommend" />
     </me-scroll>
     <div class="g-backtop-container"></div>
     <router-view></router-view>
@@ -35,12 +41,23 @@ export default {
     };
   },
   methods: {
-    updateScroll() {},
     getRecommends(recommends) {
       this.recommends = recommends;
     },
     pullToRefresh(end) {
       this.$refs.slider.update().then(end);
+    },
+    pullToLoadMore(end) {
+      this.$refs.recommend.update().then(end).catch(err => {
+        if (err) {
+          console.log(err);
+        }
+        end();
+      });
+      // setTimeout(() => {
+      //   console.log('上拉');
+      //   end();
+      // }, 1000);
     }
   }
 };
