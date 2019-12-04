@@ -6,7 +6,7 @@
         <me-loading />
       </div>
     </div>
-    <me-scroll ref="scroll">
+    <me-scroll ref="scroll" @scroll-end="scrollEnd">
       <div class="content">
         <div class="pic" v-if="content.banner">
           <a :href="content.banner.linkUrl" class="pic-link">
@@ -87,6 +87,12 @@ export default {
     },
     updateScroll() {
       this.$refs.scroll && this.$refs.scroll.update();
+    },
+    scrollEnd(translate, scroll) {
+      // console.log(translate);
+      // console.log(scroll.height);
+      // console.log(-translate > scroll.height);
+      this.isBacktopVisible = translate < 0 && -translate > scroll.height;
     }
   }
 };
@@ -187,9 +193,5 @@ export default {
     text-align: center;
     @include ellipsis();
   }
-}
-
-.g-backtop-container {
-  bottom: 10px;
 }
 </style>
