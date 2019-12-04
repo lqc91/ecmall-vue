@@ -1,4 +1,10 @@
 
+const prefix = 'ecmall-category';
+const suffix = 'key';
+export const CATEGORY_CONTENT_KEY = `${prefix}-content-${suffix}`;
+export const CATEGORY_CONTENT_UPDATE_THE_INTERVSL = 1 * 24 * 60 * 60 * 1000;
+// export const CATEGORY_CONTENT_UPDATE_THE_INTERVSL = 20 * 1000;
+
 // category names
 export const categoryNames = [
   {
