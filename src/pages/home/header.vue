@@ -3,7 +3,9 @@
     <template v-slot:left>
       <i class="iconfont icon-scan"></i>
     </template>
-    <template v-slot:center>搜索框</template>
+    <template v-slot:center>
+      <me-search-box placeholder="开学季有礼，好货5折起" fake @query="getQuery" @click.native="goToSearch" />
+    </template>
     <template v-slot:right>
       <i class="iconfont icon-msg"></i>
     </template>
@@ -12,11 +14,13 @@
 
 <script>
 import MeNavbar from 'base/navbar';
+import MeSearchBox from 'base/search-box';
 
 export default {
   name: 'HomeHeader',
   components: {
-    MeNavbar
+    MeNavbar,
+    MeSearchBox
   },
   data() {
     return {
@@ -29,6 +33,12 @@ export default {
     },
     hide() {
       this.visible = false;
+    },
+    getQuery(query) {
+      console.log(query);
+    },
+    goToSearch() {
+      this.$router.push('/search');
     }
   }
 };
