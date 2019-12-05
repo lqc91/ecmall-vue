@@ -51,8 +51,6 @@ export default {
 
 .g-content-container {
   display: flex;
-  margin-top: $navbar-height;
-  height: 100%;
 }
 .sidebar {
   width: 80px;
