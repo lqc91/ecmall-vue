@@ -7,23 +7,38 @@
       <div class="g-content-container">
         <me-scroll>
           <search-hot />
+          <search-history @show-confirm="showConfirm" ref="history" />
         </me-scroll>
       </div>
+      <me-confirm msg="确定要清空吗？" ref="confirm" @confirm="clearAllSearchHistories" />
     </div>
   </transition>
 </template>
 
 <script>
 import MeScroll from 'base/scroll';
+import MeConfirm from 'base/confirm';
 import SearchHeader from './header';
 import SearchHot from './hot';
+import SearchHistory from './history';
 
 export default {
   name: 'Search',
   components: {
     MeScroll,
+    MeConfirm,
     SearchHeader,
-    SearchHot
+    SearchHot,
+    SearchHistory
+  },
+  methods: {
+    showConfirm() {
+      this.$refs.confirm.show();
+    },
+    clearAllSearchHistories() {
+      this.$refs.history.clear();
+      this.$refs.history.update();
+    }
   }
 };
 </script>
