@@ -39,7 +39,9 @@ export default {
     removeItem(item) {
       this.histories = this.histories.filter(val => val !== item);
       storage.set(SEARCH_HISTORY_KEYWORD_KEY, this.histories);
-      this.$emit('remove-item', item);
+      setTimeout(() => {
+        this.$emit('remove-item', item);
+      }, 100);
     },
     showConfirm() {
       this.$emit('show-confirm');

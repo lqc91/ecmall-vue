@@ -5,10 +5,10 @@
         <search-header @query="getQuery" />
       </header>
       <div class="g-content-container">
-        <me-scroll>
-          <search-hot v-show="!query" />
+        <me-scroll ref="scroll">
+          <search-hot v-show="!query" @loaded="updateScroll" />
           <search-history @show-confirm="showConfirm" ref="history" v-show="!query" />
-          <search-result :query="query" v-show="query" />
+          <search-result :query="query" v-show="query" @remove-item="updateScroll" />
         </me-scroll>
       </div>
       <me-confirm msg="确定要清空吗？" ref="confirm" @confirm="clearAllSearchHistories" />
@@ -49,6 +49,9 @@ export default {
     clearAllSearchHistories() {
       this.$refs.history.clear();
       this.$refs.history.update();
+    },
+    updateScroll() {
+      this.$refs.scroll.update();
     }
   }
 };
