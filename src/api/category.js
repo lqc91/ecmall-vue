@@ -14,7 +14,6 @@ export const getCategoryContent = (id) => {
     })
   }).then(res => {
     if (res.data.code === SUCC_CODE) {
-      console.log('ok');
       return res.data.content;
     }
     throw new Error('没有成功获取到数据！');

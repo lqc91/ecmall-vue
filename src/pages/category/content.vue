@@ -137,6 +137,9 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/scss/mixins";
 
+.g-backtop-container {
+  bottom: 10px;
+}
 .content-wrapper {
   position: relative;
   height: 100%;
