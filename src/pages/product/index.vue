@@ -4,16 +4,19 @@
       <header class="g-header-container">
         <product-header />
       </header>
+      <product-slider />
     </div>
   </transition>
 </template>
 
 <script>
 import ProductHeader from './header';
+import ProductSlider from './slider';
 export default {
   name: 'Product',
   components: {
-    ProductHeader
+    ProductHeader,
+    ProductSlider
   }
 };
 </script>
