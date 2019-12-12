@@ -5,6 +5,9 @@
         <product-header />
       </header>
       <product-slider :sliders="sliders" />
+      <footer class="g-footer-container">
+        <product-footer :shopUrl="shopUrl" />
+      </footer>
     </div>
   </transition>
 </template>
@@ -12,25 +15,30 @@
 <script>
 import ProductHeader from './header';
 import ProductSlider from './slider';
+import ProductFooter from './footer';
 import { getProductDetail } from 'api/product';
 export default {
   name: 'Product',
   components: {
     ProductHeader,
-    ProductSlider
+    ProductSlider,
+    ProductFooter
   },
   data() {
     return {
-      sliders: []
+      shopUrl: '', // 当前商品所属店铺 url
+      sliders: [] // 当前商品 slider 图片
     };
   },
   created() {
-    this.getSliders();
+    this.getAsyncData();
   },
   methods: {
-    getSliders() {
-      // 获取 slider 图片
+    getAsyncData() {
       return getProductDetail(this.$route.params.id).then(data => {
+        // 获取当前商品所属店铺 url
+        this.shopUrl = data.seller.taoShopUrl;
+        // 获取当前商品 slider 图片
         this.sliders = data.item.images;
       });
     }
