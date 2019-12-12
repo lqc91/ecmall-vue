@@ -4,7 +4,6 @@
     <me-slider
       :data="sliders"
       :direction="direction"
-      :loop="loop"
       :interval="interval"
       :pagination="pagination"
       v-else
@@ -20,7 +19,6 @@
 import MeSlider from 'base/slider';
 import MeLoading from 'base/loading';
 import { swiperSlide } from 'vue-awesome-swiper';
-import { getProductDetail } from 'api/product';
 import { sliderOptions } from './config';
 
 export default {
@@ -29,6 +27,9 @@ export default {
     MeSlider,
     MeLoading,
     swiperSlide
+  },
+  props: {
+    sliders: Array
   },
   data() {
     return {
@@ -39,14 +40,12 @@ export default {
       direction: sliderOptions.direction,
       loop: sliderOptions.loop,
       interval: sliderOptions.interval,
-      pagination: sliderOptions.pagination,
-      sliders: []
+      pagination: sliderOptions.pagination
     };
   },
   created() {
     // 监听视口大小变化，并设置 slider 宽高
     window.addEventListener('resize', this.setSliderSize);
-    this.getSliders();
   },
   methods: {
     setSliderSize() { // 设置 slider 宽高
@@ -54,18 +53,9 @@ export default {
         width: window.innerWidth + 'px',
         height: window.innerWidth + 'px'
       };
-    },
-    update() {
-      return this.getSliders();
-    },
-    getSliders() {
-      // 获取 slider 图片
-      return getProductDetail(this.$route.params.id).then(data => {
-        this.sliders = data.item.images;
-      });
     }
   },
-  destroyed() {
+  beforeDestory() {
     // 销毁视口大小变化监听器
     window.removeEventListener('resize', this.setSliderSize);
   }

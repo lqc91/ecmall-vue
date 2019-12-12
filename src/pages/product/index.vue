@@ -4,7 +4,7 @@
       <header class="g-header-container">
         <product-header />
       </header>
-      <product-slider />
+      <product-slider :sliders="sliders" />
     </div>
   </transition>
 </template>
@@ -12,11 +12,28 @@
 <script>
 import ProductHeader from './header';
 import ProductSlider from './slider';
+import { getProductDetail } from 'api/product';
 export default {
   name: 'Product',
   components: {
     ProductHeader,
     ProductSlider
+  },
+  data() {
+    return {
+      sliders: []
+    };
+  },
+  created() {
+    this.getSliders();
+  },
+  methods: {
+    getSliders() {
+      // 获取 slider 图片
+      return getProductDetail(this.$route.params.id).then(data => {
+        this.sliders = data.item.images;
+      });
+    }
   }
 };
 </script>
