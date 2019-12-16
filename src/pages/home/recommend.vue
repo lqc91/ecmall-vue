@@ -8,7 +8,7 @@
       <li class="recommend-item" v-for="(item, index) in recommends" :key="index">
         <router-link
           class="recommend-link"
-          :to="{name: 'home-product', params: {id: item.baseinfo.itemId}}"
+          :to="{name: 'home-product', params: {id: item.baseinfo.itemId, juId: item.baseinfo.juId}}"
         >
           <p class="recommend-pic">
             <img v-lazy="item.baseinfo.picUrlNew" alt="img" class="recommend-img" />

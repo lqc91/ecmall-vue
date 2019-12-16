@@ -4,7 +4,10 @@
       <header class="g-header-container">
         <product-header />
       </header>
-      <product-slider :sliders="sliders" />
+      <section>
+        <product-slider :sliders="sliders" />
+        <product-baseinfo :title="title" />
+      </section>
       <footer class="g-footer-container">
         <product-footer :shopUrl="shopUrl" />
       </footer>
@@ -15,6 +18,7 @@
 <script>
 import ProductHeader from './header';
 import ProductSlider from './slider';
+import ProductBaseinfo from './baseinfo';
 import ProductFooter from './footer';
 import { getProductDetail } from 'api/product';
 export default {
@@ -22,12 +26,14 @@ export default {
   components: {
     ProductHeader,
     ProductSlider,
+    ProductBaseinfo,
     ProductFooter
   },
   data() {
     return {
       shopUrl: '', // 当前商品所属店铺 url
-      sliders: [] // 当前商品 slider 图片
+      sliders: [], // 当前商品 slider 图片
+      title: '' // 商品名称
     };
   },
   created() {
@@ -40,6 +46,7 @@ export default {
         this.shopUrl = data.seller.taoShopUrl;
         // 获取当前商品 slider 图片
         this.sliders = data.item.images;
+        this.title = data.item.title;
       });
     }
   }
