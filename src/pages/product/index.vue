@@ -10,6 +10,7 @@
           <product-slider :sliders="sliders" />
           <product-baseinfo :title="title" />
           <product-rate :rate="rate" />
+          <product-seller :seller="seller" />
         </section>
       </me-scroll>
       <footer class="g-footer-container">
@@ -24,6 +25,7 @@ import ProductHeader from './header';
 import ProductSlider from './slider';
 import ProductBaseinfo from './baseinfo';
 import ProductRate from './rate';
+import ProductSeller from './seller';
 import ProductFooter from './footer';
 import MeScroll from 'base/scroll';
 import { getProductDetail } from 'api/product';
@@ -34,6 +36,7 @@ export default {
     ProductSlider,
     ProductBaseinfo,
     ProductRate,
+    ProductSeller,
     ProductFooter,
     MeScroll
   },
@@ -42,7 +45,8 @@ export default {
       shopUrl: '', // 当前商品所属店铺 url
       sliders: [], // 当前商品 slider 图片
       title: '', // 商品名称
-      rate: {} // 商品评价
+      rate: {}, // 商品评价
+      seller: {} // 卖家信息
     };
   },
   created() {
@@ -57,6 +61,11 @@ export default {
         this.sliders = data.item.images;
         this.title = data.item.title;
         this.rate = data.rate;
+        this.seller = {
+          shopIcon: data.seller.shopIcon,
+          shopName: data.seller.shopName,
+          evaluates: data.seller.evaluates
+        };
       });
     }
   }
