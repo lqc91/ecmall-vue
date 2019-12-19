@@ -4,13 +4,14 @@
       <header class="g-header-container">
         <product-header />
       </header>
-      <me-scroll>
-        <!-- me-scroll 放在 section 内无法滚动，放在外面可以 -->
+      <me-scroll :data="detailPic" @pull-up="pullToLoadMore">
+        <!-- me-scroll 放在 section 内无法滚动，放在外面可以？ -->
         <section>
           <product-slider :sliders="sliders" />
           <product-baseinfo :title="title" />
           <product-rate :rate="rate" />
           <product-seller :seller="seller" />
+          <product-detail :parameter="parameter" @loaded="getDetailPic" ref="detail" />
         </section>
       </me-scroll>
       <footer class="g-footer-container">
@@ -26,6 +27,7 @@ import ProductSlider from './slider';
 import ProductBaseinfo from './baseinfo';
 import ProductRate from './rate';
 import ProductSeller from './seller';
+import ProductDetail from './detail';
 import ProductFooter from './footer';
 import MeScroll from 'base/scroll';
 import { getProductDetail } from 'api/product';
@@ -37,6 +39,7 @@ export default {
     ProductBaseinfo,
     ProductRate,
     ProductSeller,
+    ProductDetail,
     ProductFooter,
     MeScroll
   },
@@ -46,7 +49,9 @@ export default {
       sliders: [], // 当前商品 slider 图片
       title: '', // 商品名称
       rate: {}, // 商品评价
-      seller: {} // 卖家信息
+      seller: {}, // 卖家信息
+      parameter: [], // 商品参数
+      detailPic: [] // 商品详情图片
     };
   },
   created() {
@@ -66,6 +71,35 @@ export default {
           shopName: data.seller.shopName,
           evaluates: data.seller.evaluates
         };
+        if (data.props && data.props.groupProps && data.props.groupProps[0]['基本信息']) {
+          this.parameter = data.props.groupProps[0]['基本信息'];
+        } else if (data.props2 && data.props2.importantProps) {
+          // this.parameter = data.props2.importantProps;
+          const props = data.props2.importantProps;
+          props.forEach(value => {
+            let tmpArr = Object.values(value);
+            tmpArr.forEach((curValue, index, array) => {
+              if (!index % 2 || (index + 1) < array.length) {
+                let tmpObj = {};
+                tmpObj[curValue] = array[index + 1];
+                this.parameter.push(tmpObj);
+              }
+            });
+          });
+        } else {
+          this.parameter = [];
+        }
+      });
+    },
+    getDetailPic(detailPic) {
+      this.detailPic = detailPic;
+    },
+    pullToLoadMore(end) {
+      this.$refs.detail.update().then(end).catch(err => {
+        if (err) {
+          console.log(err);
+        }
+        end();
       });
     }
   }

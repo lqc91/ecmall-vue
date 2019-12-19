@@ -66,9 +66,9 @@ export default {
     this.init();
   },
   methods: {
-    update() {
+    update() { // to be optimized
       this.$nextTick(() => {
-        this.$refs.swiper && this.$refs.swiper.swiper.update();
+        this.$refs.swiper && this.$refs.swiper.swiper.update() && this.$refs.swiper.swiper.scrollbar.updateSize();
       });
     },
     scrollToTop(speed, runCallbacks) {

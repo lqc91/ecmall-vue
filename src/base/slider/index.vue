@@ -46,6 +46,16 @@ export default {
       default() {
         return [];
       }
+    },
+    clickable: {
+      type: Boolean,
+      default: false
+    },
+    renderBullet: {
+      type: Function,
+      default() {
+        return '<span class="swiper-pagination-bullet"></span>';
+      }
     }
   },
   data() {
@@ -79,7 +89,9 @@ export default {
         slidesPerView: 1,
         loop: this.data.length <= 1 ? false : this.loop, // 边界条件，仅一张图片，不开启
         pagination: {
-          el: this.pagination ? '.swiper-pagination' : null
+          el: this.pagination ? '.swiper-pagination' : null,
+          clickable: this.clickable,
+          renderBullet: this.renderBullet
         }
       };
     }
