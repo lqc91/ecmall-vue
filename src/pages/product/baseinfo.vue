@@ -64,9 +64,13 @@ export default {
         };
         // 比聚划算时间快了一秒？
         this.actTimeLeft = calcTimeLeft(item.onlineStartTime, item.onlineEndTime);
-        setInterval(() => {
+        const timer = setInterval(() => {
           this.actTimeLeft = calcTimeLeft(item.onlineStartTime, item.onlineEndTime);
         }, 100);
+        // 通过 $once 监听定时器，在 beforeDestroy 钩子触发时清除定时器
+        this.$once('hook:beforeDestroy', () => {
+          clearInterval(timer);
+        });
         this.features = item.picFeature.itemFeatures;
         this.tags = item.showTagNames;
       });
