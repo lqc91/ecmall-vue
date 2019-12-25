@@ -54,13 +54,25 @@ export default {
   created() {
     this.getBaseInfo();
   },
+  updated() {
+    this.$nextTick(() => {
+      this.$store.dispatch('setItemTmp', {
+        id: this.$route.params.id,
+        title: this.title,
+        price: this.baseData.actPrice,
+        pic: this.baseData.pic,
+        num: 0
+      });
+    });
+  },
   methods: {
     getBaseInfo() {
       return getProductBaseInfo(this.$route.params.id, this.$route.params.juId).then(item => {
         this.baseData = {
           actPrice: item.activityPrice / 100,
           origPrice: (item.originalPrice / 100).toFixed(2),
-          soldCount: item.soldCount
+          soldCount: item.soldCount,
+          pic: 'https://gju1.alicdn.com/tps/' + item.picUrlNew
         };
         // 比聚划算时间快了一秒？
         this.actTimeLeft = calcTimeLeft(item.onlineStartTime, item.onlineEndTime);

@@ -14,7 +14,7 @@
         <span>收藏</span>
       </a>
     </div>
-    <button class="footer-center">加入购物车</button>
+    <button class="footer-center" @click="addToCart">加入购物车</button>
     <button class="footer-right">马上抢</button>
   </div>
 </template>
@@ -24,6 +24,12 @@ export default {
   name: 'ProductFooter',
   props: {
     shopUrl: String // 当前商品所属店铺 url
+  },
+  methods: {
+    addToCart() {
+      this.$store.dispatch('addCartCount');
+      this.$store.dispatch('addCartItems', this.$store.itemTmp);
+    }
   }
 };
 </script>

@@ -9,7 +9,10 @@
       <span>分类</span>
     </router-link>
     <router-link class="g-tabbar-item" to="/cart">
-      <i class="iconfont icon-cart"></i>
+      <div class="icon-cart-wrap">
+        <i class="iconfont icon-cart"></i>
+        <i class="cart-count" v-if="cartCount">{{cartCount}}</i>
+      </div>
       <span>购物车</span>
     </router-link>
     <router-link class="g-tabbar-item" to="/personal">
@@ -21,7 +24,12 @@
 
 <script>
 export default {
-  name: 'CTabbar'
+  name: 'CTabbar',
+  computed: {
+    cartCount() {
+      return this.$store.state.cartCount;
+    }
+  }
 };
 </script>
 
@@ -30,5 +38,24 @@ export default {
 
 .router-link-active {
   color: $link-active-color;
+}
+.icon-cart-wrap {
+  position: relative;
+
+  .cart-count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    padding: 0 2px;
+    min-width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    border: 1px solid $header-bgc;
+    border-radius: 7px;
+    color: $header-bgc;
+    background-color: #fff;
+    font-size: 10px;
+  }
 }
 </style>
