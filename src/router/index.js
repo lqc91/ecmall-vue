@@ -27,7 +27,14 @@ const routes = [
   {
     name: 'cart',
     path: '/cart',
-    component: () => import('pages/cart')
+    component: () => import('pages/cart'),
+    children: [
+      {
+        name: 'checkout',
+        path: 'checkout',
+        component: () => import('pages/checkout')
+      }
+    ]
   },
   {
     name: 'personal',

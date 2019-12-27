@@ -4,17 +4,21 @@
       <header class="g-header-container">
         <cart-header />
       </header>
+      <cart-content />
+      <router-view></router-view>
     </div>
   </transition>
 </template>
 
 <script>
 import CartHeader from './header';
+import CartContent from './content';
 
 export default {
   name: 'Cart',
   components: {
-    CartHeader
+    CartHeader,
+    CartContent
   }
 };
 </script>
@@ -37,5 +41,6 @@ export default {
 .cart {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 </style>
