@@ -6,6 +6,7 @@
     <div class="g-content-container">
       <personal-user />
       <personal-order />
+      <personal-assets />
     </div>
   </div>
 </template>
@@ -14,12 +15,14 @@
 import PersonalHeader from './header';
 import PersonalUser from './user';
 import PersonalOrder from './order';
+import PersonalAssets from './assets';
 export default {
   name: 'Personal',
   components: {
     PersonalHeader,
     PersonalUser,
-    PersonalOrder
+    PersonalOrder,
+    PersonalAssets
   }
 };
 </script>
