@@ -7,7 +7,7 @@ let cancel;
 export const getCategoryContent = (id) => {
   cancel && cancel('取消了前一次的请求！');
   cancel = null;
-  return axios.get(`http://www.imooc.com/api/category/content/${id}`, {
+  return axios.get(`https://www.imooc.com/api/category/content/${id}`, {
     timeout: TIMEOUT,
     cancelToken: new CancelToken(function executor(c) {
       cancel = c;
@@ -19,10 +19,10 @@ export const getCategoryContent = (id) => {
     throw new Error('没有成功获取到数据！');
   }).catch(err => {
     if (axios.isCancel(err)) { // 取消前一次的请求
-      console.log(err);
+      return err;
     } else {
       // handle error
-      console.log(err);
+      return err;
     }
   });
 };

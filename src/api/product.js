@@ -20,7 +20,7 @@ export const getProductDetail = (itemNumId) => {
 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 };
 
@@ -44,7 +44,7 @@ export const getProductBaseInfo = (itemId, juId) => {
 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 };
 
@@ -90,7 +90,7 @@ export const getProductDetailPic = (itemId) => {
 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 };
 
@@ -116,6 +116,6 @@ export const getProductRateList = (itemId, pageNo = 1, pageSize = 10) => {
 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 };

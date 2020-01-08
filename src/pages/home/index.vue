@@ -66,7 +66,7 @@ export default {
     pullToLoadMore(end) {
       this.$refs.recommend.update().then(end).catch(err => {
         if (err) {
-          console.log(err);
+          return err;
         }
         end();
         // 处理没有更多数据的情况

@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     getQuery(query) {
-      console.log(query);
+      return query;
     },
     goToSearch() {
       this.$router.push('/search');

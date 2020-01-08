@@ -97,7 +97,7 @@ export default {
     pullToLoadMore(end) {
       this.$refs.detail.update().then(end).catch(err => {
         if (err) {
-          console.log(err);
+          return err;
         }
         end();
       });

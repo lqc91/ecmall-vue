@@ -15,7 +15,7 @@ export const getSearchHotKeyWord = () => {
     throw new Error('没有成功获取到数据！');
   }).catch(err => {
     if (err) {
-      console.log(err);
+      return err;
     }
   }).then(res => {
     return new Promise(resolve => {
@@ -45,7 +45,7 @@ export const getSearchResult = keyword => {
     throw new Error('没有成功获取到数据！');
   }).catch(err => {
     if (err) {
-      console.log(err);
+      return err;
     }
   }).then(res => {
     return new Promise(resolve => {

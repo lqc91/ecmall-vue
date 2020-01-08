@@ -35,7 +35,7 @@ export default {
       this.visible = false;
     },
     getQuery(query) {
-      console.log(query);
+      return query;
     },
     goToSearch() {
       this.$router.push('/search');

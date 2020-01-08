@@ -5,6 +5,8 @@ function resolve(dir) {
 }
 
 module.exports = {
+  // 部署到 GitHub Pages
+  publicPath: process.env.NODE_env === 'production' ? '/ecmall-vue/' : '/',
   devServer: {
     // server 启动后自动打开浏览器
     open: 'true',

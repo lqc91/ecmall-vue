@@ -18,7 +18,7 @@ const shuffle = (arr) => {
 
 // 获取幻灯片数据--ajax
 export const getHomeSlider = () => {
-  return axios.get('http://www.imooc.com/api/home/slider', {
+  return axios.get('https://www.imooc.com/api/home/slider', {
     timeout: TIMEOUT
   }).then(res => {
     if (res.data.code === SUCC_CODE) {
@@ -33,7 +33,7 @@ export const getHomeSlider = () => {
     throw Error('没有成功获取到数据！');
   }).catch(err => {
     if (err) {
-      console.log(err);
+      return err;
     }
 
     return [
@@ -62,6 +62,6 @@ export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => 
 
     throw new Error('没有成功获取到数据');
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 };

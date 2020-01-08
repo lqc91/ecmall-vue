@@ -54,7 +54,6 @@ export default new Vuex.Store({
     addCartItems({ dispatch, commit }, payload) {
       return new Promise((resolve, reject) => {
         dispatch('setItemTmp');
-        console.log(this.$store.itemTmp);
       }).then(() => {
         commit('addCartItems', payload);
       });
